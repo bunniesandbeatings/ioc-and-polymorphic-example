@@ -1,10 +1,11 @@
-package processor
+package place
 
 import (
 	"fmt"
 	"math/rand"
 
 	"example.com/patterns/api"
+	"example.com/patterns/processor"
 )
 
 // Avoid metadata in the pure-data, just refer to it
@@ -14,13 +15,13 @@ type processablePlace struct {
 	object *api.Place
 }
 
-func NewPlaceNode(place *api.Place) ProcessableItem {
+func NewPlaceNode(place *api.Place) processor.ProcessableItem {
 	return &processablePlace{
 		object: place,
 	}
 }
 
-func (p *processablePlace) Process(sharedContext *Context) bool {
+func (p *processablePlace) Process(sharedContext *processor.Context) bool {
 	fmt.Printf("  Place: %s\n", p.object.Name)
 	if p.object.Location != nil {
 		fmt.Printf("    Location: %v\n", p.object.Location)

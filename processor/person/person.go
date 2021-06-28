@@ -1,9 +1,10 @@
-package processor
+package person
 
 import (
 	"fmt"
 
 	"example.com/patterns/api"
+	"example.com/patterns/processor"
 )
 
 // Avoid metadata in the pure-data, just refer to it
@@ -15,13 +16,13 @@ type processablePerson struct {
 	object *api.Person
 }
 
-func NewPersonNode(person *api.Person) ProcessableItem {
+func NewPersonNode(person *api.Person) processor.ProcessableItem {
 	return &processablePerson{
 		object: person,
 	}
 }
 
-func (p *processablePerson) Process(sharedContext *Context) bool {
+func (p *processablePerson) Process(sharedContext *processor.Context) bool {
 	fmt.Printf("  Person: %s\n", p.object.Name)
 	if p.object.Location != nil {
 		fmt.Printf("    Location: %s\n", p.object.Location)

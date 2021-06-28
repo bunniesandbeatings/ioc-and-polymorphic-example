@@ -4,6 +4,8 @@ import (
 	"fmt"
 
 	"example.com/patterns/api"
+	"example.com/patterns/processor/person"
+	"example.com/patterns/processor/place"
 )
 
 type ProcessableItem interface {
@@ -49,9 +51,9 @@ func MakeProcessable(items []interface{}) ProcessableList {
 	for _, item := range items {
 		switch v := item.(type) {
 		case *api.Place:
-			processableItem = NewPlaceNode(v)
+			processableItem = place.NewPlaceNode(v)
 		case *api.Person:
-			processableItem = NewPersonNode(v)
+			processableItem = person.NewPersonNode(v)
 		default:
 			panic("Provided unknown processable")
 		}
