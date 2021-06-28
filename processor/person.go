@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"example.com/patterns/api"
+	"example.com/patterns/person"
 )
 
 // Avoid metadata in the pure-data, just refer to it
@@ -23,8 +24,7 @@ func NewPersonNode(person *api.Person) ProcessableItem {
 
 func (p *processablePerson) Process(sharedContext *Context) bool {
 	fmt.Printf("  Person: %s\n", p.object.Name)
-	if p.object.Location != nil {
-		fmt.Printf("    Location: %s\n", p.object.Location)
+	if person.Valid(p.object) {
 		return false
 	}
 

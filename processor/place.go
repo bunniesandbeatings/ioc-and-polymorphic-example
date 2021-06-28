@@ -2,9 +2,9 @@ package processor
 
 import (
 	"fmt"
-	"math/rand"
 
 	"example.com/patterns/api"
+	"example.com/patterns/place"
 )
 
 // Avoid metadata in the pure-data, just refer to it
@@ -22,21 +22,13 @@ func NewPlaceNode(place *api.Place) ProcessableItem {
 
 func (p *processablePlace) Process(sharedContext *Context) bool {
 	fmt.Printf("  Place: %s\n", p.object.Name)
-	if p.object.Location != nil {
-		fmt.Printf("    Location: %v\n", p.object.Location)
+
+	if place.Valid(p.object) {
 		return false
 	}
 
-	// This is a stochastic simulation of information becoming available on an endpoint.
-	if rand.Float32() > .9 {
-		p.object.Location = &api.Location{
-			Lat: rand.Float64() * 100.0,
-			Lon: rand.Float64() * 100.0,
-		}
-
-		sharedContext.AddLocationByPlace(p.object)
-		return false
-	}
+	place.Update(p.object)
+	sharedContext.AddLocationByPlace(p.object)
 
 	return true
 }
