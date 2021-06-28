@@ -7,6 +7,8 @@ import (
 	"example.com/patterns/api"
 )
 
+// Avoid metadata in the pure-data, just refer to it
+
 type processablePlace struct {
 	dirty  bool
 	object *api.Place

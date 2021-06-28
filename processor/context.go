@@ -2,7 +2,11 @@ package processor
 
 import "example.com/patterns/api"
 
+// Context
+// The processor is not generic because Go makes that hard
+// But it doesn't matter, the processor knows three things, annotated as KNOWS: in the code
 type Context struct {
+	// KNOWS: 1. what optimization is needed to reduce nested loops
 	locations map[string]*api.Location
 }
 

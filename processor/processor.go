@@ -19,6 +19,7 @@ type processableList struct {
 	context *Context
 }
 
+// KNOWS: 3. that we are collapsing incomplete state.
 func (l *processableList) Process() {
 	l.context = NewContext()
 
@@ -38,6 +39,9 @@ func (l *processableList) Process() {
 	fmt.Println("--- Reconciled")
 }
 
+// MakeProcessable
+// KNOWS: 2. How to build node types
+// This could be abstracted away as well but feels uneccessary
 func MakeProcessable(items []interface{}) ProcessableList {
 	var processableItems []ProcessableItem
 	var processableItem ProcessableItem
